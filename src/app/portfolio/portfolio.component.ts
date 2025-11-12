@@ -1,4 +1,4 @@
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass, NgFor, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -6,7 +6,8 @@ import {
   AfterViewInit,
   ElementRef,
   ViewChild,
-  HostListener,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
 import * as THREE from 'three';
 
@@ -20,7 +21,7 @@ import * as THREE from 'three';
 export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   currentYear: number = new Date().getFullYear();
   activeSection = 'home';
@@ -136,47 +137,55 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
 
   ngOnInit(): void {
-    this.initThreeJS();
-    this.animate();
-    window.addEventListener('mousemove', this.handleMouseMove.bind(this));
-    window.addEventListener('resize', this.handleResize.bind(this));
+    // ✅ Run Three.js only on the browser (not during SSR)
+    if (isPlatformBrowser(this.platformId)) {
+      this.initThreeJS();
+      this.animate();
+      window.addEventListener('mousemove', this.handleMouseMove.bind(this));
+      window.addEventListener('resize', this.handleResize.bind(this));
+    }
   }
 
   ngAfterViewInit(): void {
-    this.sections = Array.from(this.elRef.nativeElement.querySelectorAll('section'));
+    if (isPlatformBrowser(this.platformId)) {
+      this.sections = Array.from(this.elRef.nativeElement.querySelectorAll('section'));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find the entry with highest intersection ratio
-        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
-        if (visibleEntries.length > 0) {
-          const mostVisible = visibleEntries.reduce((prev, current) =>
-            current.intersectionRatio > prev.intersectionRatio ? current : prev
-          );
-          this.activeSection = mostVisible.target.id;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+          if (visibleEntries.length > 0) {
+            const mostVisible = visibleEntries.reduce((prev, current) =>
+              current.intersectionRatio > prev.intersectionRatio ? current : prev
+            );
+            this.activeSection = mostVisible.target.id;
+          }
+        },
+        {
+          root: null,
+          threshold: [0.1, 0.2, 0.3, 0.4, 0.5],
+          rootMargin: '-80px 0px -60% 0px',
         }
-      },
-      {
-        root: null,
-        threshold: [0.1, 0.2, 0.3, 0.4, 0.5], // Multiple thresholds for accuracy
-        rootMargin: '-80px 0px -60% 0px', // Trigger when section enters top portion
-      }
-    );
+      );
 
-    this.sections.forEach((section) => observer.observe(section));
+      this.sections.forEach((section) => observer.observe(section));
+    }
   }
 
   ngOnDestroy(): void {
-    window.removeEventListener('mousemove', this.handleMouseMove.bind(this));
-    window.removeEventListener('resize', this.handleResize.bind(this));
-    if (this.animationId) cancelAnimationFrame(this.animationId);
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('mousemove', this.handleMouseMove.bind(this));
+      window.removeEventListener('resize', this.handleResize.bind(this));
+      if (this.animationId) cancelAnimationFrame(this.animationId);
+    }
   }
 
   scrollToSection(sectionId: string) {
-    const section = this.elRef.nativeElement.querySelector(`#${sectionId}`);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      this.activeSection = sectionId;
+    if (isPlatformBrowser(this.platformId)) {
+      const section = this.elRef.nativeElement.querySelector(`#${sectionId}`);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.activeSection = sectionId;
+      }
     }
   }
 
