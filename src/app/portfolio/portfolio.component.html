@@ -19,15 +19,40 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Section - F1 Dashboard Style -->
   <section id="home" class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">Dhairya Oza</h1>
-      <p class="hero-subtitle">Software Engineer at Halma plc</p>
-      <p class="hero-description">
-        Full Stack Developer | Flutter | Angular | NestJS | .NET MAUI | React Native
-      </p>
-      <div class="social-links">
+    <!-- F1 Dashboard Panels -->
+    <div class="dashboard-container">
+      <!-- Left Dashboard Panel -->
+      <div class="dashboard-panel left-panel">
+        <div class="panel-header">
+          <h3 class="panel-title">PERFORMANCE</h3>
+        </div>
+        <div class="panel-content">
+          <div class="stat-item">
+            <span class="stat-label">SPEED</span>
+            <span class="stat-value">{{ carSpeed }}</span>
+            <span class="stat-unit">km/h</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">RPM</span>
+            <span class="stat-value">{{ rpm }}</span>
+            <span class="stat-unit">rpm</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">GEAR</span>
+            <span class="stat-value-large">{{ gear }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Content -->
+      <div class="hero-content">
+        <p class="hero-subtitle">Software Engineer at Halma plc</p>
+        <p class="hero-description">
+          Full Stack Developer | Flutter | Angular | NestJS | .NET MAUI | React Native
+        </p>
+        <div class="social-links">
         <a href="mailto:ozadhairya73@gmail.com" class="social-icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -108,6 +133,28 @@
             <circle cx="4" cy="4" r="2" />
           </svg>
         </a>
+        </div>
+      </div>
+
+      <!-- Right Dashboard Panel -->
+      <div class="dashboard-panel right-panel">
+        <div class="panel-header">
+          <h3 class="panel-title">STATS</h3>
+        </div>
+        <div class="panel-content">
+          <div class="stat-item">
+            <span class="stat-label">LAP TIME</span>
+            <span class="stat-value-time">{{ lapTime }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">LAP</span>
+            <span class="stat-value">42</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">POSITION</span>
+            <span class="stat-value-large">1st</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
