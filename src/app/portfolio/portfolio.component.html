@@ -7,6 +7,47 @@
     <div class="nav-content">
       <button class="nav-title" (click)="scrollToSection('home')">Dhairya Oza</button>
 
+      <div class="garage" [class.open]="garageOpen()">
+        <button
+          class="garage-trigger"
+          (click)="toggleGarage()"
+          [attr.aria-expanded]="garageOpen()"
+          aria-haspopup="true"
+          [attr.aria-label]="'Change team — currently ' + teamSpec().name"
+        >
+          <span class="garage-swatch" aria-hidden="true">
+            <i [style.background]="teamSpec().swatch[0]"></i>
+            <i [style.background]="teamSpec().swatch[1]"></i>
+          </span>
+          <span class="garage-trigger-text">
+            <span class="garage-trigger-team">{{ teamSpec().short }}</span>
+            <span class="garage-trigger-car">{{ teamSpec().car }}</span>
+          </span>
+          <span class="garage-caret" aria-hidden="true"></span>
+        </button>
+
+        <div class="garage-menu" role="menu" *ngIf="garageOpen()">
+          <p class="garage-menu-title">Pit Garage</p>
+          <button
+            *ngFor="let id of teamIds"
+            class="garage-option"
+            role="menuitemradio"
+            [attr.aria-checked]="team() === id"
+            [class.selected]="team() === id"
+            (click)="setTeam(id)"
+          >
+            <span class="garage-swatch" aria-hidden="true">
+              <i [style.background]="teams[id].swatch[0]"></i>
+              <i [style.background]="teams[id].swatch[1]"></i>
+            </span>
+            <span class="garage-option-text">
+              <span class="garage-option-team">{{ teams[id].short }}</span>
+              <span class="garage-option-meta">{{ teams[id].car }} · {{ teams[id].base }}</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
       <button
         class="nav-toggle"
         (click)="toggleMenu()"
@@ -63,7 +104,9 @@
             <span class="car-fallback-icon">🏎️</span>
             <p>3D view needs WebGL — everything else works fine.</p>
           </div>
-          <span class="car-hint" *ngIf="!webglFailed()">Drag to rotate</span>
+          <span class="car-hint" *ngIf="!webglFailed()"
+            >{{ teamSpec().car }} · drag to rotate</span
+          >
         </div>
 
         <div class="hero-content">
@@ -198,6 +241,11 @@
           <div class="stat-item">
             <span class="stat-label">Position</span>
             <span class="stat-value-large">1st</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Chassis</span>
+            <span class="stat-value-chassis">{{ teamSpec().car }}</span>
+            <span class="stat-unit">{{ teamSpec().short }}</span>
           </div>
         </div>
       </div>

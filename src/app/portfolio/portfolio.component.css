@@ -2169,3 +2169,199 @@
     animation: none !important;
   }
 }
+
+/* ============================================================
+   Pit garage — the team switcher
+   ============================================================ */
+
+.garage {
+  position: relative;
+  flex: 0 0 auto;
+  order: 3;
+  margin-left: 1.25rem;
+}
+
+.garage-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.7rem;
+  background: rgba(var(--bg-deep-rgb), 0.7);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  border-radius: 6px;
+  color: var(--text-strong);
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+
+.garage-trigger:hover,
+.garage.open .garage-trigger {
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.12);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.35);
+}
+
+.garage-trigger:focus-visible,
+.garage-option:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+.garage-swatch {
+  display: flex;
+  flex-direction: column;
+  width: 10px;
+  height: 22px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex: 0 0 auto;
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.5);
+}
+
+.garage-swatch i {
+  display: block;
+  flex: 1;
+}
+
+.garage-trigger-text,
+.garage-option-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.garage-trigger-team,
+.garage-option-team {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.garage-trigger-car,
+.garage-option-meta {
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.garage-caret {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--accent-2);
+  transition: transform 0.25s;
+}
+
+.garage.open .garage-caret {
+  transform: rotate(180deg);
+}
+
+.garage-menu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  min-width: 232px;
+  padding: 0.5rem;
+  background: rgba(var(--bg-deep-rgb), 0.96);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  border-radius: 8px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 18px rgba(var(--accent-rgb), 0.25);
+  z-index: 60;
+  animation: garageDrop 0.22s ease;
+}
+
+@keyframes garageDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.garage-menu-title {
+  margin: 0.15rem 0.5rem 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.garage-option {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.55rem 0.5rem;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  border-radius: 4px;
+  color: var(--text-mid);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.garage-option:hover {
+  background: rgba(var(--accent-rgb), 0.12);
+  color: #fff;
+}
+
+.garage-option.selected {
+  background: rgba(var(--accent-rgb), 0.18);
+  border-left-color: var(--accent);
+  color: #fff;
+}
+
+.stat-value-chassis {
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--accent-2);
+  text-shadow: 0 0 12px rgba(var(--accent-2-rgb), 0.5);
+}
+
+@media (max-width: 768px) {
+  .garage {
+    /* Sits beside the hamburger; the nav links drop to their own row. */
+    order: 1;
+    margin-left: auto;
+    margin-right: 0.75rem;
+  }
+
+  .garage-trigger {
+    padding: 0.35rem 0.5rem;
+    gap: 0.45rem;
+  }
+
+  .garage-trigger-team {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .garage-trigger-text {
+    display: none;
+  }
+
+  .garage-menu {
+    right: -2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garage-menu {
+    animation: none;
+  }
+}
