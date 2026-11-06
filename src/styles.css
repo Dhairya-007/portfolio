@@ -1,13 +1,102 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles + F1 team theming ------------------------------------------ */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* --------------------------------------------------------------------------
+   Team themes.
+   Every colour the portfolio paints with comes from these four slots:
+     --bg-deep / --bg-mid   the page gradient and panel backgrounds
+     --accent               the primary team colour (borders, glows, CTAs)
+     --accent-2            the secondary team colour (titles, highlights)
+   The *-rgb twins exist so component CSS can do rgba(var(--accent-rgb), .4).
+   Default (no data-team attribute) is Red Bull, so SSR renders correctly
+   before any JS runs.
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-team='redbull'] {
+  --bg-deep: #0a0e27;
+  --bg-deep-rgb: 10, 14, 39;
+  --bg-mid: #1a1f3a;
+  --accent: #ff1800;
+  --accent-rgb: 255, 24, 0;
+  --accent-soft: #ff5a2b;
+  --accent-bright: #ff6a4d;
+  --accent-2: #ffd700;
+  --accent-2-rgb: 255, 215, 0;
+  --text-strong: #e4e7f1;
+  --text-mid: #d1d5db;
+  --text-dim: #9ca3af;
+  --text-faint: #6b7280;
+  --text-steel: #b9c0d4;
+  --live: #4ade80;
+  --live-rgb: 74, 222, 128;
+}
+
+:root[data-team='mercedes'] {
+  --bg-deep: #05121a;
+  --bg-deep-rgb: 5, 18, 26;
+  --bg-mid: #0e2730;
+  --accent: #00d2be;
+  --accent-rgb: 0, 210, 190;
+  --accent-soft: #3ce8d6;
+  --accent-bright: #7ff5e9;
+  --accent-2: #c8ced8;
+  --accent-2-rgb: 200, 206, 216;
+  --text-strong: #e8eef2;
+  --text-mid: #ccd6dc;
+  --text-dim: #8fa3ab;
+  --text-faint: #65787f;
+  --text-steel: #a9bcc4;
+  --live: #4ade80;
+  --live-rgb: 74, 222, 128;
+}
+
+:root[data-team='ferrari'] {
+  --bg-deep: #14050a;
+  --bg-deep-rgb: 20, 5, 10;
+  --bg-mid: #2d070e;
+  --accent: #ff2800;
+  --accent-rgb: 255, 40, 0;
+  --accent-soft: #ff6038;
+  --accent-bright: #ff8a66;
+  --accent-2: #fff200;
+  --accent-2-rgb: 255, 242, 0;
+  --text-strong: #f4e9e6;
+  --text-mid: #e0cfcb;
+  --text-dim: #ac9894;
+  --text-faint: #7d6b68;
+  --text-steel: #c9b4b0;
+  --live: #4ade80;
+  --live-rgb: 74, 222, 128;
+}
+
+:root[data-team='mclaren'] {
+  --bg-deep: #120c06;
+  --bg-deep-rgb: 18, 12, 6;
+  --bg-mid: #24180b;
+  --accent: #ff8000;
+  --accent-rgb: 255, 128, 0;
+  --accent-soft: #ffa23d;
+  --accent-bright: #ffbd70;
+  --accent-2: #47c7fc;
+  --accent-2-rgb: 71, 199, 252;
+  --text-strong: #f2ece4;
+  --text-mid: #ded5c8;
+  --text-dim: #a89d8d;
+  --text-faint: #7a7063;
+  --text-steel: #c2b8a8;
+  --live: #4ade80;
+  --live-rgb: 74, 222, 128;
+}
+
 body {
   margin: 0;
   padding: 0;
+  background: var(--bg-deep);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,4 +106,11 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Colours cross-fade when the team changes instead of snapping. */
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition: background-color 420ms ease;
+  }
 }

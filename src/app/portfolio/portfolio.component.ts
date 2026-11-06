@@ -25,6 +25,264 @@ interface Project {
   featured?: boolean;
 }
 
+export type TeamId = 'redbull' | 'mercedes' | 'ferrari' | 'mclaren';
+
+/** Every colour the 3D car is painted with. */
+interface Livery {
+  tub: number;
+  cover: number;
+  flash: number;
+  highlight: number;
+  wing: number;
+  endplate: number;
+  hub: number;
+  rim: number;
+  helmet: number;
+  helmetTrim: number;
+  sidewall: number;
+  carbon: number;
+}
+
+/** The shape knobs that make each team's car a different silhouette. */
+interface Chassis {
+  profile: 'classic' | 'modern';
+  halo: boolean;
+  noseLength: number;
+  noseRadius: number;
+  noseY: number;
+  frontWingSpan: number;
+  sidepodHeight: number;
+  sidepodWidth: number;
+  sidepodY: number;
+  airboxRadius: number;
+  rearWingY: number;
+  rearWingSpan: number;
+  rearWingRake: number;
+  spine: boolean;
+}
+
+interface TeamLighting {
+  hemiSky: number;
+  hemiGround: number;
+  rimA: number;
+  rimB: number;
+  fill: number;
+}
+
+export interface Team {
+  id: TeamId;
+  themeColor: string;
+  name: string;
+  short: string;
+  car: string;
+  base: string;
+  swatch: [string, string];
+  livery: Livery;
+  chassis: Chassis;
+  lighting: TeamLighting;
+  particles: [number, number, number];
+}
+
+export const TEAMS: Record<TeamId, Team> = {
+  // 2013-era RB9: no halo, low slim nose, tall rear wing, navy/purple tub.
+  redbull: {
+    id: 'redbull',
+    themeColor: '#0a0e27',
+    name: 'Oracle Red Bull Racing',
+    short: 'Red Bull',
+    car: 'RB9',
+    base: 'Milton Keynes',
+    swatch: ['#ff1800', '#ffd700'],
+    livery: {
+      tub: 0x151034,
+      cover: 0x331c6b,
+      flash: 0xd81e2c,
+      highlight: 0xffc400,
+      wing: 0x151034,
+      endplate: 0x151034,
+      hub: 0xd81e2c,
+      rim: 0xb9bfcc,
+      helmet: 0xf2f2f5,
+      helmetTrim: 0xffc400,
+      sidewall: 0xe9e9ef,
+      carbon: 0x0c0e1c,
+    },
+    chassis: {
+      profile: 'classic',
+      halo: false,
+      noseLength: 0.95,
+      noseRadius: 0.21,
+      noseY: -0.04,
+      frontWingSpan: 2.0,
+      sidepodHeight: 0.36,
+      sidepodWidth: 0.46,
+      sidepodY: -0.08,
+      airboxRadius: 0.2,
+      rearWingY: 0.68,
+      rearWingSpan: 1.4,
+      rearWingRake: -0.26,
+      spine: true,
+    },
+    lighting: {
+      hemiSky: 0x9fb4ff,
+      hemiGround: 0x060814,
+      rimA: 0xff1800,
+      rimB: 0xffd700,
+      fill: 0x668cff,
+    },
+    particles: [0xff1800, 0xffd700, 0x2b3566],
+  },
+
+  // W11-era: near-black tub, Petronas teal flashes, long slender nose, halo.
+  mercedes: {
+    id: 'mercedes',
+    themeColor: '#05121a',
+    name: 'Mercedes-AMG Petronas',
+    short: 'Mercedes',
+    car: 'W11',
+    base: 'Brackley',
+    swatch: ['#00d2be', '#c8ced8'],
+    livery: {
+      tub: 0x0b0d11,
+      cover: 0x15191e,
+      flash: 0x00d2be,
+      highlight: 0xc3cad4,
+      wing: 0x0b0d11,
+      endplate: 0x00a399,
+      hub: 0x00d2be,
+      rim: 0xd4dae2,
+      helmet: 0x1b1f24,
+      helmetTrim: 0x00d2be,
+      sidewall: 0xe9e9ef,
+      carbon: 0x0a0c0f,
+    },
+    chassis: {
+      profile: 'modern',
+      halo: true,
+      noseLength: 1.18,
+      noseRadius: 0.15,
+      noseY: 0.02,
+      frontWingSpan: 2.04,
+      sidepodHeight: 0.3,
+      sidepodWidth: 0.42,
+      sidepodY: -0.1,
+      airboxRadius: 0.17,
+      rearWingY: 0.6,
+      rearWingSpan: 1.3,
+      rearWingRake: -0.2,
+      spine: false,
+    },
+    lighting: {
+      hemiSky: 0x9fd8e0,
+      hemiGround: 0x03090c,
+      rimA: 0x00d2be,
+      rimB: 0xc8ced8,
+      fill: 0x5fa8b8,
+    },
+    particles: [0x00d2be, 0xc8ced8, 0x1d3f49],
+  },
+
+  // F1-75-era: rosso corsa tub, black flashes, wide blunt nose, tall wing, halo.
+  ferrari: {
+    id: 'ferrari',
+    themeColor: '#14050a',
+    name: 'Scuderia Ferrari',
+    short: 'Ferrari',
+    car: 'F1-75',
+    base: 'Maranello',
+    swatch: ['#ff2800', '#fff200'],
+    livery: {
+      tub: 0xd40000,
+      cover: 0xb00010,
+      flash: 0x16161a,
+      highlight: 0xfff200,
+      wing: 0xd40000,
+      endplate: 0x16161a,
+      hub: 0xfff200,
+      rim: 0xc9ced6,
+      helmet: 0xf2f2f5,
+      helmetTrim: 0xd40000,
+      sidewall: 0xe9e9ef,
+      carbon: 0x140809,
+    },
+    chassis: {
+      profile: 'modern',
+      halo: true,
+      noseLength: 0.86,
+      noseRadius: 0.24,
+      noseY: 0.0,
+      frontWingSpan: 1.96,
+      sidepodHeight: 0.42,
+      sidepodWidth: 0.5,
+      sidepodY: -0.04,
+      airboxRadius: 0.21,
+      rearWingY: 0.74,
+      rearWingSpan: 1.36,
+      rearWingRake: -0.3,
+      spine: true,
+    },
+    lighting: {
+      hemiSky: 0xffc3b8,
+      hemiGround: 0x0d0305,
+      rimA: 0xff2800,
+      rimB: 0xfff200,
+      fill: 0xff8a7a,
+    },
+    particles: [0xff2800, 0xfff200, 0x5a1620],
+  },
+
+  // MCL36-era: papaya tub, anthracite cover, blue flashes, narrow nose, halo.
+  mclaren: {
+    id: 'mclaren',
+    themeColor: '#120c06',
+    name: 'McLaren Formula 1 Team',
+    short: 'McLaren',
+    car: 'MCL36',
+    base: 'Woking',
+    swatch: ['#ff8000', '#47c7fc'],
+    livery: {
+      tub: 0xf57300,
+      cover: 0x1b1d22,
+      flash: 0x0090d0,
+      highlight: 0xff9b2f,
+      wing: 0x1b1d22,
+      endplate: 0xf57300,
+      hub: 0x0090d0,
+      rim: 0xcbd2da,
+      helmet: 0xf2f2f5,
+      helmetTrim: 0xf57300,
+      sidewall: 0xe9e9ef,
+      carbon: 0x14100c,
+    },
+    chassis: {
+      profile: 'modern',
+      halo: true,
+      noseLength: 1.05,
+      noseRadius: 0.17,
+      noseY: 0.0,
+      frontWingSpan: 2.08,
+      sidepodHeight: 0.34,
+      sidepodWidth: 0.47,
+      sidepodY: -0.09,
+      airboxRadius: 0.19,
+      rearWingY: 0.65,
+      rearWingSpan: 1.34,
+      rearWingRake: -0.24,
+      spine: false,
+    },
+    lighting: {
+      hemiSky: 0xffd0a0,
+      hemiGround: 0x0b0804,
+      rimA: 0xff8000,
+      rimB: 0x47c7fc,
+      fill: 0x8fb8d8,
+    },
+    particles: [0xff8000, 0x47c7fc, 0x4a3318],
+  },
+};
+
+export const TEAM_IDS: TeamId[] = ['redbull', 'mercedes', 'ferrari', 'mclaren'];
+
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
@@ -53,6 +311,14 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly menuOpen = signal(false);
   readonly webglFailed = signal(false);
 
+  // ------------------------------------------------------------------- teams
+  readonly teamIds = TEAM_IDS;
+  readonly teams = TEAMS;
+  readonly team = signal<TeamId>('redbull');
+  readonly teamSpec = computed<Team>(() => TEAMS[this.team()]);
+  readonly garageOpen = signal(false);
+  private static readonly STORAGE_KEY = 'portfolio.team';
+
   // ---------------------------------------------------------------- three.js
   private bgScene!: THREE.Scene;
   private bgCamera!: THREE.PerspectiveCamera;
@@ -65,6 +331,8 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
   private carGroup?: THREE.Group;
   private wheels: THREE.Object3D[] = [];
   private controls: any;
+  private carLights: THREE.Light[] = [];
+  private groundShadow?: THREE.Mesh;
 
   private clock = new THREE.Clock();
   private animationId = 0;
@@ -95,6 +363,18 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   private onCarPointerDown = () => {
     this.interactionUntil = performance.now() + 2600;
+  };
+  private onDocumentPointerDown = (event: Event) => {
+    if (!this.garageOpen()) return;
+    const target = event.target as Node | null;
+    if (target && this.elRef.nativeElement.querySelector('.garage')?.contains(target)) return;
+    this.garageOpen.set(false);
+  };
+  private onDocumentKeydown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.garageOpen.set(false);
+      this.menuOpen.set(false);
+    }
   };
 
   // ------------------------------------------------------------------ content
@@ -404,6 +684,8 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    this.restoreTeam();
+
     if (!this.initRenderers()) {
       this.webglFailed.set(true);
       return;
@@ -422,6 +704,9 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
+
+    document.addEventListener('pointerdown', this.onDocumentPointerDown);
+    document.addEventListener('keydown', this.onDocumentKeydown);
 
     const sections: HTMLElement[] = Array.from(
       this.elRef.nativeElement.querySelectorAll('section[id]')
@@ -466,6 +751,8 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
     this.stopLoop();
     window.removeEventListener('resize', this.onWindowResize);
     document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    document.removeEventListener('pointerdown', this.onDocumentPointerDown);
+    document.removeEventListener('keydown', this.onDocumentKeydown);
 
     const carCanvas = this.carCanvasRef?.nativeElement;
     if (carCanvas) {
@@ -488,6 +775,7 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // ------------------------------------------------------------ navigation
   toggleMenu(): void {
+    this.garageOpen.set(false);
     this.menuOpen.update((open) => !open);
   }
 
@@ -551,20 +839,10 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
 
-    const red = new THREE.Color(0xff1800);
-    const yellow = new THREE.Color(0xffd700);
-    const steel = new THREE.Color(0x2b3566);
-
     for (let i = 0; i < count * 3; i += 3) {
       positions[i] = (Math.random() - 0.5) * 30;
       positions[i + 1] = (Math.random() - 0.5) * 20;
       positions[i + 2] = (Math.random() - 0.5) * 30;
-
-      const pick = Math.random();
-      const color = pick < 0.4 ? red : pick < 0.7 ? yellow : steel;
-      colors[i] = color.r;
-      colors[i + 1] = color.g;
-      colors[i + 2] = color.b;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -582,8 +860,29 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.particles = new THREE.Points(geometry, material);
     this.bgScene.add(this.particles);
+    this.paintParticles();
 
     this.resizeBackground();
+  }
+
+  /** Repaints the speed-line field in the active team's colours, in place. */
+  private paintParticles(): void {
+    if (!this.particles) return;
+    const [primary, secondary, steelHex] = this.teamSpec().particles;
+    const primaryColor = new THREE.Color(primary);
+    const secondaryColor = new THREE.Color(secondary);
+    const steel = new THREE.Color(steelHex);
+
+    const attr = this.particles.geometry.attributes['color'] as THREE.BufferAttribute;
+    const array = attr.array as Float32Array;
+    for (let i = 0; i < array.length; i += 3) {
+      const pick = Math.random();
+      const color = pick < 0.4 ? primaryColor : pick < 0.7 ? secondaryColor : steel;
+      array[i] = color.r;
+      array[i + 1] = color.g;
+      array[i + 2] = color.b;
+    }
+    attr.needsUpdate = true;
   }
 
   private buildCarScene(): void {
@@ -595,27 +894,104 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
     this.carCamera.position.set(4.6, 2.1, 6.0);
     this.carCamera.lookAt(0, -0.05, 0);
 
-    this.carScene.add(new THREE.HemisphereLight(0x9fb4ff, 0x060814, 1.1));
+    this.buildCarLights();
+    this.buildCarBody();
+  }
+
+  /** Rig lit in the team's two colours. Rebuilt whenever the team changes. */
+  private buildCarLights(): void {
+    for (const light of this.carLights) {
+      this.carScene.remove(light);
+      light.dispose?.();
+    }
+    this.carLights = [];
+
+    const { hemiSky, hemiGround, rimA, rimB, fill: fillColor } = this.teamSpec().lighting;
+
+    const hemi = new THREE.HemisphereLight(hemiSky, hemiGround, 1.1);
 
     const key = new THREE.DirectionalLight(0xffffff, 2.4);
     key.position.set(5, 7, 5);
-    this.carScene.add(key);
 
-    const redRim = new THREE.DirectionalLight(0xff1800, 1.6);
-    redRim.position.set(-6, 2.5, -3);
-    this.carScene.add(redRim);
+    const rimOne = new THREE.DirectionalLight(rimA, 1.6);
+    rimOne.position.set(-6, 2.5, -3);
 
-    const goldRim = new THREE.DirectionalLight(0xffd700, 1.1);
-    goldRim.position.set(3, 1.2, -6);
-    this.carScene.add(goldRim);
+    const rimTwo = new THREE.DirectionalLight(rimB, 1.1);
+    rimTwo.position.set(3, 1.2, -6);
 
-    const fill = new THREE.DirectionalLight(0x668cff, 0.7);
+    const fill = new THREE.DirectionalLight(fillColor, 0.7);
     fill.position.set(-3, -2, 4);
-    this.carScene.add(fill);
+
+    this.carLights = [hemi, key, rimOne, rimTwo, fill];
+    for (const light of this.carLights) this.carScene.add(light);
+  }
+
+  /** Builds (or rebuilds) the car itself and the blob it sits on. */
+  private buildCarBody(): void {
+    if (this.carGroup) {
+      this.carScene.remove(this.carGroup);
+      this.disposeObject(this.carGroup);
+      this.carGroup = undefined;
+    }
+    if (!this.groundShadow) {
+      this.groundShadow = this.createGroundShadow();
+      this.carScene.add(this.groundShadow);
+    }
 
     this.carGroup = this.createF1Car();
     this.carScene.add(this.carGroup);
-    this.carScene.add(this.createGroundShadow());
+  }
+
+  // ------------------------------------------------------------ team switch
+  setTeam(id: TeamId): void {
+    if (id === this.team()) {
+      this.garageOpen.set(false);
+      return;
+    }
+    this.team.set(id);
+    this.garageOpen.set(false);
+    this.applyTeamAttribute();
+    this.persistTeam();
+
+    if (this.webglFailed()) return;
+    this.paintParticles();
+    if (this.carScene) {
+      this.buildCarLights();
+      this.buildCarBody();
+    }
+  }
+
+  toggleGarage(): void {
+    this.menuOpen.set(false);
+    this.garageOpen.update((open) => !open);
+  }
+
+  private restoreTeam(): void {
+    let stored: string | null = null;
+    try {
+      stored = window.localStorage.getItem(PortfolioComponent.STORAGE_KEY);
+    } catch {
+      // Private browsing or blocked storage — the default team is fine.
+    }
+    if (stored && (TEAM_IDS as string[]).includes(stored)) {
+      this.team.set(stored as TeamId);
+    }
+    this.applyTeamAttribute();
+  }
+
+  private persistTeam(): void {
+    try {
+      window.localStorage.setItem(PortfolioComponent.STORAGE_KEY, this.team());
+    } catch {
+      // Not being able to remember the choice is not worth failing over.
+    }
+  }
+
+  private applyTeamAttribute(): void {
+    document.documentElement.setAttribute('data-team', this.team());
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', this.teamSpec().themeColor);
   }
 
   private async initOrbitControls(): Promise<void> {
@@ -643,30 +1019,42 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
     const car = new THREE.Group();
     this.wheels = [];
 
-    // Livery modelled on a 2013-era Red Bull RB9: deep navy-purple tub,
-    // yellow nose and airbox, red flashes, white-walled tyres.
-    const navy = new THREE.MeshStandardMaterial({
-      color: 0x151034,
+    const { livery, chassis } = this.teamSpec();
+
+    // --- Paint. Every colour here comes from the team's livery, so the same
+    //     builder produces an RB9, a W11, an F1-75 or an MCL36.
+    const tub = new THREE.MeshStandardMaterial({
+      color: livery.tub,
       metalness: 0.62,
       roughness: 0.3,
     });
-    const purple = new THREE.MeshStandardMaterial({
-      color: 0x331c6b,
+    const cover = new THREE.MeshStandardMaterial({
+      color: livery.cover,
       metalness: 0.55,
       roughness: 0.32,
     });
-    const red = new THREE.MeshStandardMaterial({
-      color: 0xd81e2c,
+    const flash = new THREE.MeshStandardMaterial({
+      color: livery.flash,
       metalness: 0.42,
       roughness: 0.3,
     });
-    const yellow = new THREE.MeshStandardMaterial({
-      color: 0xffc400,
+    const highlight = new THREE.MeshStandardMaterial({
+      color: livery.highlight,
       metalness: 0.5,
       roughness: 0.26,
     });
+    const wingPaint = new THREE.MeshStandardMaterial({
+      color: livery.wing,
+      metalness: 0.52,
+      roughness: 0.3,
+    });
+    const endplatePaint = new THREE.MeshStandardMaterial({
+      color: livery.endplate,
+      metalness: 0.52,
+      roughness: 0.3,
+    });
     const carbon = new THREE.MeshStandardMaterial({
-      color: 0x0c0e1c,
+      color: livery.carbon,
       metalness: 0.45,
       roughness: 0.52,
     });
@@ -676,14 +1064,19 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
       roughness: 0.94,
     });
     const sidewall = new THREE.MeshStandardMaterial({
-      color: 0xe9e9ef,
+      color: livery.sidewall,
       metalness: 0.1,
       roughness: 0.6,
     });
     const chrome = new THREE.MeshStandardMaterial({
-      color: 0xb9bfcc,
+      color: livery.rim,
       metalness: 0.95,
       roughness: 0.22,
+    });
+    const hubPaint = new THREE.MeshStandardMaterial({
+      color: livery.hub,
+      metalness: 0.6,
+      roughness: 0.28,
     });
     const glass = new THREE.MeshStandardMaterial({
       color: 0x080a14,
@@ -691,9 +1084,14 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
       roughness: 0.08,
     });
     const helmet = new THREE.MeshStandardMaterial({
-      color: 0xf2f2f5,
+      color: livery.helmet,
       metalness: 0.3,
       roughness: 0.35,
+    });
+    const helmetTrim = new THREE.MeshStandardMaterial({
+      color: livery.helmetTrim,
+      metalness: 0.45,
+      roughness: 0.3,
     });
 
     const add = (
@@ -709,61 +1107,131 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
       return mesh;
     };
 
-    // --- Monocoque, built from a side profile so it actually looks like a car.
-    car.add(new THREE.Mesh(this.createBodyGeometry(), navy));
+    // --- Monocoque, extruded from the team's side profile.
+    car.add(new THREE.Mesh(this.createBodyGeometry(chassis.profile), tub));
 
-    // Purple engine cover with the yellow spine running back from the airbox.
-    add(new THREE.BoxGeometry(0.5, 0.05, 1.35), purple, [0, 0.4, -1.3]);
-    add(new THREE.BoxGeometry(0.16, 0.05, 1.5), yellow, [0, 0.42, -1.2]);
-    add(new THREE.BoxGeometry(0.42, 0.04, 0.9), red, [0, 0.37, -0.75]);
+    // --- Engine cover. The contrasting spine only exists on the liveries
+    //     that actually carry one down the middle.
+    add(new THREE.BoxGeometry(0.5, 0.05, 1.35), cover, [0, 0.4, -1.3]);
+    if (chassis.spine) {
+      add(new THREE.BoxGeometry(0.16, 0.05, 1.5), highlight, [0, 0.42, -1.2]);
+    }
+    add(new THREE.BoxGeometry(0.42, 0.04, 0.9), flash, [0, 0.37, -0.75]);
 
-    // --- Nose: yellow tip, cone aimed forward (+Z) by rotating about X.
-    add(new THREE.ConeGeometry(0.21, 0.95, 20), yellow, [0, -0.04, 2.1], [Math.PI / 2, 0, 0]);
-    add(new THREE.ConeGeometry(0.1, 0.22, 16), yellow, [0, -0.04, 2.56], [Math.PI / 2, 0, 0]);
-    add(new THREE.BoxGeometry(0.3, 0.05, 0.7), yellow, [0, 0.14, 1.55]);
+    // --- Nose. Length and bluntness are the biggest silhouette tell.
+    const noseTipZ = 1.63 + chassis.noseLength / 2;
+    add(
+      new THREE.ConeGeometry(chassis.noseRadius, chassis.noseLength, 20),
+      highlight,
+      [0, chassis.noseY, noseTipZ],
+      [Math.PI / 2, 0, 0]
+    );
+    add(
+      new THREE.ConeGeometry(chassis.noseRadius * 0.48, 0.22, 16),
+      highlight,
+      [0, chassis.noseY, noseTipZ + chassis.noseLength / 2 + 0.01],
+      [Math.PI / 2, 0, 0]
+    );
+    add(new THREE.BoxGeometry(0.3, 0.05, 0.7), highlight, [0, chassis.noseY + 0.18, 1.55]);
 
-    // --- Front wing: dark planes, red outer flaps, navy endplates.
-    add(new THREE.BoxGeometry(2.0, 0.035, 0.46), carbon, [0, -0.33, 2.2]);
-    add(new THREE.BoxGeometry(1.94, 0.03, 0.3), carbon, [0, -0.25, 2.03], [-0.22, 0, 0]);
-    add(new THREE.BoxGeometry(0.42, 0.045, 0.5), red, [0.76, -0.32, 2.2]);
-    add(new THREE.BoxGeometry(0.42, 0.045, 0.5), red, [-0.76, -0.32, 2.2]);
-    add(new THREE.BoxGeometry(0.05, 0.36, 0.58), navy, [1.0, -0.2, 2.16]);
-    add(new THREE.BoxGeometry(0.05, 0.36, 0.58), navy, [-1.0, -0.2, 2.16]);
-    add(new THREE.BoxGeometry(0.055, 0.12, 0.3), red, [1.0, -0.32, 2.2]);
-    add(new THREE.BoxGeometry(0.055, 0.12, 0.3), red, [-1.0, -0.32, 2.2]);
-    add(new THREE.BoxGeometry(0.05, 0.22, 0.06), carbon, [0.16, -0.24, 2.3]);
-    add(new THREE.BoxGeometry(0.05, 0.22, 0.06), carbon, [-0.16, -0.24, 2.3]);
+    // --- Front wing, sized to the team's span.
+    const halfSpan = chassis.frontWingSpan / 2;
+    const wingZ = noseTipZ + chassis.noseLength / 2 - 0.42;
+    add(new THREE.BoxGeometry(chassis.frontWingSpan, 0.035, 0.46), carbon, [0, -0.33, wingZ]);
+    add(
+      new THREE.BoxGeometry(chassis.frontWingSpan - 0.06, 0.03, 0.3),
+      carbon,
+      [0, -0.25, wingZ - 0.17],
+      [-0.22, 0, 0]
+    );
+    for (const side of [1, -1]) {
+      add(new THREE.BoxGeometry(0.42, 0.045, 0.5), flash, [side * (halfSpan - 0.24), -0.32, wingZ]);
+      add(new THREE.BoxGeometry(0.05, 0.36, 0.58), endplatePaint, [side * halfSpan, -0.2, wingZ - 0.04]);
+      add(new THREE.BoxGeometry(0.055, 0.12, 0.3), flash, [side * halfSpan, -0.32, wingZ]);
+      add(new THREE.BoxGeometry(0.05, 0.22, 0.06), carbon, [side * 0.16, -0.24, wingZ + 0.1]);
+    }
+
+    // Nose pylons. Without these the long modern noses read as floating
+    // above a detached front wing from the side.
+    const noseUnderside = chassis.noseY - chassis.noseRadius * 0.8;
+    const pylonHeight = Math.max(noseUnderside - -0.31, 0.06);
+    for (const side of [1, -1]) {
+      add(
+        new THREE.BoxGeometry(0.045, pylonHeight, 0.12),
+        carbon,
+        [side * 0.11, -0.31 + pylonHeight / 2, wingZ + 0.14]
+      );
+    }
 
     // --- Floor and the plank under it.
     add(new THREE.BoxGeometry(1.62, 0.05, 3.5), carbon, [0, -0.33, -0.25]);
-    add(new THREE.BoxGeometry(0.4, 0.03, 3.2), navy, [0, -0.37, -0.25]);
+    add(new THREE.BoxGeometry(0.4, 0.03, 3.2), tub, [0, -0.37, -0.25]);
 
-    // --- Sidepods: navy shell, purple top panel, red stripe along the bottom.
+    // --- Sidepods. Tall and square for Ferrari, slim and low for Mercedes.
+    const sp = chassis;
     for (const side of [1, -1]) {
-      add(new THREE.BoxGeometry(0.46, 0.36, 1.5), navy, [side * 0.64, -0.08, -0.5]);
-      add(new THREE.BoxGeometry(0.47, 0.1, 1.2), purple, [side * 0.64, 0.06, -0.5]);
-      add(new THREE.BoxGeometry(0.48, 0.07, 1.25), red, [side * 0.64, -0.22, -0.5]);
       add(
-        new THREE.CylinderGeometry(0.17, 0.11, 0.42, 16, 1, true),
+        new THREE.BoxGeometry(sp.sidepodWidth, sp.sidepodHeight, 1.5),
+        tub,
+        [side * 0.64, sp.sidepodY, -0.5]
+      );
+      add(
+        new THREE.BoxGeometry(sp.sidepodWidth + 0.01, 0.1, 1.2),
+        cover,
+        [side * 0.64, sp.sidepodY + sp.sidepodHeight / 2 - 0.04, -0.5]
+      );
+      add(
+        new THREE.BoxGeometry(sp.sidepodWidth + 0.02, 0.07, 1.25),
+        flash,
+        [side * 0.64, sp.sidepodY - sp.sidepodHeight / 2 + 0.04, -0.5]
+      );
+      // Radiator inlet.
+      add(
+        new THREE.CylinderGeometry(sp.sidepodHeight * 0.47, sp.sidepodHeight * 0.3, 0.42, 16, 1, true),
         carbon,
-        [side * 0.64, -0.05, 0.3],
+        [side * 0.64, sp.sidepodY + 0.03, 0.3],
         [Math.PI / 2, 0, 0]
       );
       // Bargeboard ahead of the sidepod.
-      add(new THREE.BoxGeometry(0.03, 0.26, 0.5), purple, [side * 0.78, -0.18, 0.78], [0, 0.18, 0]);
+      add(new THREE.BoxGeometry(0.03, 0.26, 0.5), cover, [side * 0.78, -0.18, 0.78], [0, 0.18, 0]);
       // Floor edge winglet.
       add(new THREE.BoxGeometry(0.06, 0.16, 1.1), carbon, [side * 0.82, -0.28, -0.6]);
     }
 
-    // --- Cockpit and driver. No halo: the RB9 raced before halos existed.
+    // --- Cockpit and driver.
     add(new THREE.BoxGeometry(0.58, 0.16, 0.88), glass, [0, 0.14, 0.12]);
-    add(new THREE.BoxGeometry(0.54, 0.06, 0.3), navy, [0, 0.22, 0.46]);
+    add(new THREE.BoxGeometry(0.54, 0.06, 0.3), tub, [0, 0.22, 0.46]);
     add(new THREE.SphereGeometry(0.15, 20, 16), helmet, [0, 0.22, -0.18]);
-    add(new THREE.TorusGeometry(0.14, 0.022, 8, 24), yellow, [0, 0.24, -0.18], [0, Math.PI / 2, 0]);
+    add(
+      new THREE.TorusGeometry(0.14, 0.022, 8, 24),
+      helmetTrim,
+      [0, 0.24, -0.18],
+      [0, Math.PI / 2, 0]
+    );
     add(new THREE.SphereGeometry(0.152, 20, 16, 0, Math.PI, 0.9, 0.9), glass, [0, 0.22, -0.18]);
 
-    // --- Yellow airbox over the roll hoop.
-    add(new THREE.CylinderGeometry(0.18, 0.21, 0.32, 18), yellow, [0, 0.46, -0.52]);
+    // --- Halo. The RB9 raced before halos existed; the modern cars all have one.
+    if (chassis.halo) {
+      add(
+        new THREE.TorusGeometry(0.33, 0.034, 8, 30),
+        carbon,
+        [0, 0.33, 0.04],
+        [-Math.PI / 2 + 0.12, 0, 0]
+      );
+      // Front pylon down onto the nose shelf.
+      add(new THREE.BoxGeometry(0.05, 0.18, 0.06), carbon, [0, 0.26, 0.37]);
+      // Rear mounts either side, back to the roll hoop.
+      for (const side of [1, -1]) {
+        add(new THREE.BoxGeometry(0.04, 0.16, 0.05), carbon, [side * 0.3, 0.33, -0.22]);
+      }
+    }
+
+    // --- Airbox over the roll hoop.
+    add(
+      new THREE.CylinderGeometry(chassis.airboxRadius * 0.9, chassis.airboxRadius, 0.32, 18),
+      highlight,
+      [0, 0.46, -0.52]
+    );
     add(
       new THREE.CylinderGeometry(0.11, 0.11, 0.26, 16, 1, true),
       carbon,
@@ -775,14 +1243,28 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
       add(new THREE.BoxGeometry(0.07, 0.06, 0.2), carbon, [side * 0.26, 0.5, -0.5]);
     }
 
-    // --- Rear wing: navy planes, endplates with the red lower panel.
-    add(new THREE.BoxGeometry(0.12, 0.5, 0.18), carbon, [0, 0.42, -2.25]);
-    add(new THREE.BoxGeometry(1.4, 0.05, 0.46), navy, [0, 0.68, -2.3], [-0.26, 0, 0]);
-    add(new THREE.BoxGeometry(1.34, 0.04, 0.26), navy, [0, 0.84, -2.44], [-0.5, 0, 0]);
-    add(new THREE.BoxGeometry(1.36, 0.02, 0.1), red, [0, 0.75, -2.17], [-0.26, 0, 0]);
+    // --- Rear wing. Height and rake separate the high-downforce cars from
+    //     the skinny low-drag ones.
+    const rwY = chassis.rearWingY;
+    const rwSpan = chassis.rearWingSpan;
+    const rwHalf = rwSpan / 2;
+    add(new THREE.BoxGeometry(0.12, 0.5, 0.18), carbon, [0, rwY - 0.26, -2.25]);
+    add(new THREE.BoxGeometry(rwSpan, 0.05, 0.46), wingPaint, [0, rwY, -2.3], [chassis.rearWingRake, 0, 0]);
+    add(
+      new THREE.BoxGeometry(rwSpan - 0.06, 0.04, 0.26),
+      wingPaint,
+      [0, rwY + 0.16, -2.44],
+      [chassis.rearWingRake - 0.24, 0, 0]
+    );
+    add(
+      new THREE.BoxGeometry(rwSpan - 0.04, 0.02, 0.1),
+      flash,
+      [0, rwY + 0.07, -2.17],
+      [chassis.rearWingRake, 0, 0]
+    );
     for (const side of [1, -1]) {
-      add(new THREE.BoxGeometry(0.05, 0.42, 0.66), navy, [side * 0.7, 0.72, -2.32]);
-      add(new THREE.BoxGeometry(0.055, 0.26, 0.66), red, [side * 0.7, 0.4, -2.32]);
+      add(new THREE.BoxGeometry(0.05, 0.42, 0.66), endplatePaint, [side * rwHalf, rwY + 0.04, -2.32]);
+      add(new THREE.BoxGeometry(0.055, 0.26, 0.66), flash, [side * rwHalf, rwY - 0.28, -2.32]);
     }
     add(new THREE.BoxGeometry(1.02, 0.04, 0.24), carbon, [0, 0.2, -2.36], [-0.2, 0, 0]);
 
@@ -798,7 +1280,7 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
     // --- Mirrors.
     for (const side of [1, -1]) {
       add(new THREE.BoxGeometry(0.22, 0.03, 0.03), carbon, [side * 0.42, 0.2, 0.42]);
-      add(new THREE.BoxGeometry(0.06, 0.08, 0.04), yellow, [side * 0.54, 0.2, 0.42]);
+      add(new THREE.BoxGeometry(0.06, 0.08, 0.04), highlight, [side * 0.54, 0.2, 0.42]);
     }
 
     // --- Wheels. F1 rears are wider and taller than the fronts.
@@ -825,7 +1307,7 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
 
       const hub = new THREE.Mesh(
         new THREE.CylinderGeometry(spec.r * 0.2, spec.r * 0.2, spec.w * 1.08, 14),
-        red
+        hubPaint
       );
       hub.rotation.z = Math.PI / 2;
       wheel.add(hub);
@@ -856,25 +1338,50 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
     return car;
   }
 
-  /** Side-profile silhouette extruded across the car's width. */
-  private createBodyGeometry(): THREE.ExtrudeGeometry {
-    const profile: [number, number][] = [
-      [-2.3, -0.2],
-      [-2.3, 0.14],
-      [-1.75, 0.3],
-      [-1.1, 0.4],
-      [-0.62, 0.38],
-      [-0.5, 0.12],
-      [0.35, 0.1],
-      [0.56, 0.24],
-      [1.25, 0.2],
-      [1.72, 0.08],
-      [1.9, -0.04],
-      [1.7, -0.16],
-      [0.6, -0.24],
-      [-0.6, -0.28],
-      [-2.3, -0.22],
-    ];
+  /**
+   * Side-profile silhouette extruded across the car's width.
+   * 'classic' is the 2013 low-nose shape; 'modern' raises the nose shelf and
+   * the shoulder line the way the halo-era cars do.
+   */
+  private createBodyGeometry(variant: 'classic' | 'modern' = 'classic'): THREE.ExtrudeGeometry {
+    const profiles: Record<'classic' | 'modern', [number, number][]> = {
+      classic: [
+        [-2.3, -0.2],
+        [-2.3, 0.14],
+        [-1.75, 0.3],
+        [-1.1, 0.4],
+        [-0.62, 0.38],
+        [-0.5, 0.12],
+        [0.35, 0.1],
+        [0.56, 0.24],
+        [1.25, 0.2],
+        [1.72, 0.08],
+        [1.9, -0.04],
+        [1.7, -0.16],
+        [0.6, -0.24],
+        [-0.6, -0.28],
+        [-2.3, -0.22],
+      ],
+      modern: [
+        [-2.3, -0.2],
+        [-2.3, 0.2],
+        [-1.8, 0.36],
+        [-1.12, 0.46],
+        [-0.66, 0.44],
+        [-0.52, 0.16],
+        [0.3, 0.15],
+        [0.54, 0.3],
+        [1.3, 0.3],
+        [1.8, 0.24],
+        [2.02, 0.12],
+        [1.86, -0.04],
+        [0.7, -0.22],
+        [-0.6, -0.28],
+        [-2.3, -0.22],
+      ],
+    };
+
+    const profile = profiles[variant];
 
     const shape = new THREE.Shape();
     shape.moveTo(profile[0][0], profile[0][1]);
@@ -1042,6 +1549,20 @@ export class PortfolioComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // ---------------------------------------------------------------- cleanup
+  /** Frees the geometry and materials under one object (used on team swaps). */
+  private disposeObject(root: THREE.Object3D): void {
+    root.traverse((object) => {
+      const mesh = object as THREE.Mesh;
+      if (mesh.geometry) mesh.geometry.dispose();
+      const material = mesh.material as THREE.Material | THREE.Material[] | undefined;
+      if (Array.isArray(material)) {
+        material.forEach((m) => m.dispose());
+      } else if (material) {
+        material.dispose();
+      }
+    });
+  }
+
   private disposeScene(scene?: THREE.Scene): void {
     if (!scene) return;
     scene.traverse((object) => {

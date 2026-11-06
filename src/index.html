@@ -32,6 +32,18 @@
   <link rel="apple-touch-icon" href="favicon.svg">
 </head>
 <body>
+  <!-- Apply the remembered team before first paint, so a returning visitor
+       never sees the default Red Bull palette flash before hydration. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('portfolio.team');
+        if (t && ['redbull', 'mercedes', 'ferrari', 'mclaren'].indexOf(t) !== -1) {
+          document.documentElement.setAttribute('data-team', t);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <app-root></app-root>
 </body>
 </html>

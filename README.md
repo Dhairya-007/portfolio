@@ -19,12 +19,35 @@ achievements and contact. Projects carry live demo and source links, and filter 
 The centrepiece is a Formula 1 car built entirely from Three.js primitives — no model file, no
 loader, nothing to download. The body is an `ExtrudeGeometry` built from a side-profile
 silhouette, with sidepods, bargeboards, a diffuser, suspension wishbones and a canvas-texture
-ground shadow layered on top. The livery is RB9-inspired: navy-purple tub, yellow nose and
-airbox, red accents, white-walled tyres.
+ground shadow layered on top.
+
+The same builder produces four different cars. Each team in the registry carries a *livery*
+(every colour the car is painted with) and a *chassis* (the shape knobs — nose length and
+bluntness, sidepod height and width, airbox radius, rear wing height, span and rake, and whether
+the car has a halo), so the silhouettes genuinely differ rather than being recolours:
+
+| Team | Car | Silhouette |
+| --- | --- | --- |
+| Red Bull | RB9 | 2013 shape — no halo, low slim nose, tall rear wing, navy-purple tub |
+| Mercedes | W11 | Halo, long slender nose, low sidepods, skinny low-drag rear wing |
+| Ferrari | F1-75 | Halo, short blunt nose, tall square sidepods, high-downforce rear wing |
+| McLaren | MCL36 | Halo, narrow nose, widest front wing, papaya tub over anthracite |
 
 It sits on its own canvas inside the hero stage rather than a page-wide one, so it never bleeds
 behind the rest of the page, and `OrbitControls` can actually receive pointer events. Drag to
 rotate; auto-rotate yields while you drag and picks back up after a pause.
+
+### Team themes
+
+The pit garage control in the navbar switches the whole site between Red Bull, Mercedes, Ferrari
+and McLaren. Switching a team swaps four things at once: the CSS palette, the 3D car's paint, its
+chassis shape, and the colour of the lights and background speed-lines in the scene.
+
+Page colour lives entirely in CSS custom properties defined per `[data-team]` in
+[`src/styles.css`](src/styles.css) — nothing team-specific is hardcoded in the component stylesheet,
+so a fifth team is a palette block plus a registry entry. The default (no attribute) is Red Bull,
+so server-rendered HTML is correct before any JS runs. The choice is remembered in `localStorage`,
+and the car is disposed and rebuilt on each switch rather than leaking geometry.
 
 ### Performance and lifecycle
 
@@ -85,11 +108,11 @@ src/
 │   ├── portfolio/
 │   │   ├── portfolio.component.ts     # content data, Three.js scene, car model, lifecycle
 │   │   ├── portfolio.component.html   # all seven sections
-│   │   └── portfolio.component.css    # F1 theme, responsive rules
+│   │   └── portfolio.component.css    # layout and responsive rules (colours via CSS vars)
 │   ├── app.config.ts                  # zoneless change detection, hydration
 │   └── app.routes.server.ts           # prerender config
 ├── index.html                         # title, meta, Open Graph, favicons
-└── styles.css                         # global resets
+└── styles.css                         # global resets + the four team palettes
 public/
 ├── assets/Dhairya-Oza-Resume.pdf
 ├── favicon.svg
